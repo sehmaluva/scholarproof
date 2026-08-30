@@ -17,6 +17,28 @@ ScholarProof lets students hold credentials privately and generate a privacy-pre
 - **Privacy:** Midnight Compact contract + proof service (TypeScript)
 
 ## Quick start
+
+### 1) Install Python tooling
+
+If you want to use the project the same way it is configured for the backend, install uv first:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env
+uv --version
+```
+
+If you are using pip instead, install the backend dependencies from the requirements file:
+
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+
 #### Pre-requisits
 ```bash
 # 1. Update the Linux package index
@@ -39,6 +61,22 @@ compact update
 compact --version
 
 ```
+
+### 2) Run the app using the repo script
+
+From the project root, start the backend, Midnight service, and frontend together:
+
+```bash
+chmod +x scripts/dev.sh
+./scripts/dev.sh
+```
+
+This script starts:
+- Backend at http://127.0.0.1:8000
+- Midnight service at http://127.0.0.1:4000
+- Frontend at http://127.0.0.1:5173
+
+### 3) Manual startup (if you want to run each service separately)
 
 ```bash
 # Postgres (optional — sqlite works for local dev)
@@ -64,6 +102,22 @@ pnpm dev
 ```
 
 Open http://localhost:5173
+
+### 4) Pip-only alternative
+
+If you prefer plain pip instead of uv, run:
+
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver 127.0.0.1:8000
+```
+
+The backend dependency file is at [backend/requirements.txt](backend/requirements.txt) and is kept in sync with the uv project configuration in [backend/pyproject.toml](backend/pyproject.toml).
 
 ## Demo credentials
 
