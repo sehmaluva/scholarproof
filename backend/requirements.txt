@@ -1,0 +1,15 @@
+# Generated from backend/pyproject.toml for pip/uv compatibility.
+# Install with: python -m pip install -r requirements.txt
+# Or with uv: uv pip install -r requirements.txt
+
+django>=6.1
+django-cors-headers>=4.9.0
+djangorestframework>=3.18.0
+djangorestframework-simplejwt>=5.5.1
+gunicorn>=26.2.0
+psycopg[binary]>=3.3.4
+pydantic>=2.13.5
+python-dotenv>=1.2.3
+pytest>=9.1.1
+pytest-django>=4.14.0
+ruff>=0.16.5
