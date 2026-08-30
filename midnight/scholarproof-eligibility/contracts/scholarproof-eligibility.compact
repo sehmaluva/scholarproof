@@ -1,0 +1,51 @@
+pragma language_version >= 0.20;
+
+import CompactStandardLibrary;
+
+// Public policy thresholds (on ledger)
+export ledger policyId: Uint<64>;
+export ledger gpaThresholdScaled: Uint<16>;
+export ledger incomeThreshold: Uint<32>;
+export ledger maxAge: Uint<8>;
+export ledger minimumStudyYears: Uint<8>;
+export ledger requiresEnrollment: Boolean;
+
+// Private student witnesses — never disclosed on ledger
+witness studentGpaScaled(): Uint<16>;
+witness studentIncome(): Uint<32>;
+witness studentAge(): Uint<8>;
+witness studentYearsCompleted(): Uint<8>;
+witness studentEnrolled(): Boolean;
+
+export circuit verifyEligibility(): [] {
+  const gpa = studentGpaScaled();
+  const income = studentIncome();
+  const age = studentAge();
+  const years = studentYearsCompleted();
+  const enrolled = studentEnrolled();
+
+  assert(gpa >= gpaThresholdScaled, "GPA requirement not met");
+  assert(income < incomeThreshold, "Income requirement not met");
+  assert(age < maxAge, "Age requirement not met");
+  assert(years >= minimumStudyYears, "Study years requirement not met");
+
+  if (requiresEnrollment) {
+    assert(enrolled, "Enrollment requirement not met");
+  }
+}
+
+export circuit setPolicy(
+  id: Uint<64>,
+  gpaScaled: Uint<16>,
+  income: Uint<32>,
+  ageLimit: Uint<8>,
+  minYears: Uint<8>,
+  enrollmentRequired: Boolean
+): [] {
+  policyId = disclose(id);
+  gpaThresholdScaled = disclose(gpaScaled);
+  incomeThreshold = disclose(income);
+  maxAge = disclose(ageLimit);
+  minimumStudyYears = disclose(minYears);
+  requiresEnrollment = disclose(enrollmentRequired);
+}
