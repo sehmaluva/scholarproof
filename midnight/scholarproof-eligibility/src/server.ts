@@ -114,6 +114,6 @@ app.post("/proof/verify", async (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`ScholarProof Midnight service on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`ScholarProof Midnight service on port ${PORT}`);
 });
