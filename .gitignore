@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+db.sqlite3
+
+# Node
+node_modules/
+dist/
+.pnpm-store/
+
+# Env
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Midnight generated
+midnight/**/src/contract/generated/
+midnight/**/managed/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
