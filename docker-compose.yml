@@ -1,0 +1,30 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: scholarproof
+      POSTGRES_USER: scholarproof
+      POSTGRES_PASSWORD: scholarproof
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scholarproof"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  proof-server:
+    image: midnightnetwork/proof-server:latest
+    ports:
+      - "6300:6300"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6300/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  postgres_data:
