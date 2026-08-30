@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  @apply antialiased;
+  font-family: var(--font-sans);
+  margin: 0;
+  min-height: 100vh;
+  color: rgba(255, 255, 255, 0.92);
+  background-color: #08080a;
+}
+
+/* Neutral glass backdrop — no color tint */
+.glass-page {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+.glass-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -30%, rgba(255, 255, 255, 0.09), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 100% 0%, rgba(255, 255, 255, 0.05), transparent 50%),
+    radial-gradient(ellipse 60% 45% at 0% 100%, rgba(255, 255, 255, 0.06), transparent 45%),
+    linear-gradient(180deg, #0a0a0c 0%, #060608 45%, #09090b 100%);
+}
+
+.glass-page::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+}
+
+.glass-orb {
+  position: fixed;
+  border-radius: 9999px;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.glass-orb-a {
+  top: -12%;
+  left: 18%;
+  width: 42vmin;
+  height: 42vmin;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.glass-orb-b {
+  bottom: -8%;
+  right: 10%;
+  width: 50vmin;
+  height: 50vmin;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.glass-orb-c {
+  top: 40%;
+  right: -5%;
+  width: 28vmin;
+  height: 28vmin;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Reusable glass surfaces */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(24px) saturate(1.25);
+  -webkit-backdrop-filter: blur(24px) saturate(1.25);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  box-shadow:
+    0 4px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+}
+
+.glass-panel-strong {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+}
+
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
