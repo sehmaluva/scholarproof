@@ -17,6 +17,28 @@ ScholarProof lets students hold credentials privately and generate a privacy-pre
 - **Privacy:** Midnight Compact contract + proof service (TypeScript)
 
 ## Quick start
+#### Pre-requisits
+```bash
+# 1. Update the Linux package index
+sudo apt update && sudo apt install curl -y
+
+# 2. Download and run the official Compact installer script
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh
+
+# 3. Reload your environment to add Compact to your active PATH
+source $HOME/.local/bin/env
+source ~/.bashrc
+
+# 4. Update the CLI manager tool to the latest stable edition
+compact self update
+
+# 5. Download and set the active Compact compiler version
+compact update
+
+# 6. Verify the installation works inside WSL
+compact --version
+
+```
 
 ```bash
 # Postgres (optional — sqlite works for local dev)
