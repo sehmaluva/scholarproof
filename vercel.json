@@ -1,27 +1,36 @@
 {
-    "services": {
-        "frontend": {
-            "root": "frontend",
-            "framework": "vite"
-        },
-        "backend": {
-            "root": "backend"
-        }
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "frontend": {
+      "root": "frontend",
+      "framework": "vite",
+      "installCommand": "pnpm install",
+      "buildCommand": "pnpm run build",
+      "outputDirectory": "dist",
+      "rewrites": [
+        { "source": "/assets/(.*)", "destination": "/assets/$1" },
+        { "source": "/(.*)", "destination": "/index.html" }
+      ]
     },
-    "rewrites": [
-        {
-            "source": "/api(/.*)?",
-            "destination": {
-                "type": "service",
-                "service": "backend"
-            }
-        },
-        {
-            "source": "/(.*)",
-            "destination": {
-                "type": "service",
-                "service": "frontend"
-            }
+    "backend": {
+      "root": "backend",
+      "framework": "django",
+      "installCommand": "pip install -r requirements.txt",
+      "functions": {
+        "config/wsgi.py": {
+          "maxDuration": 60
         }
-    ]
+      }
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": { "service": "backend" }
+    },
+    {
+      "source": "/(.*)",
+      "destination": { "service": "frontend" }
+    }
+  ]
 }
